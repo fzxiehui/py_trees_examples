@@ -5,6 +5,9 @@ import py_trees
 
 if __name__ == '__main__':
 
+    """
+        选择器树, 只会执行 High
+    """
     root = py_trees.composites.Selector("Selector")
     high = py_trees.behaviours.Success(name="High Priority")
     med = py_trees.behaviours.Success(name="Med Priority")

@@ -22,7 +22,10 @@ selector.py
 selector_with_memory.py
 sequence.py
 sequence_with_memory.py
-# 最基础 Aviour
+
+# 最基础 Aviour类
 skeleton_behaviour.py
+
+# 选择器树 只会执行 优秀级最高 Aviour
 skeleton_tree.py
 ```
