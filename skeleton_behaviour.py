@@ -15,6 +15,7 @@ class Foo(py_trees.behaviour.Behaviour):
 
         Other one-time initialisation requirements should be met via
         the setup() method.
+        初始化时应保持最小轻量级初始化，其他初始化任务可以放在setup中完成。
         """
         super(Foo, self).__init__(name)
 
@@ -45,6 +46,7 @@ class Foo(py_trees.behaviour.Behaviour):
           - Middleware initialisation (e.g. ROS pubs/subs/services)
           - A parallel checking for a valid policy configuration after
             children have been added or removed
+        包含延时、硬件等初始化可以在此从完成
         """
         self.logger.debug("  %s [Foo::setup()]" % self.name)
 
@@ -57,6 +59,7 @@ class Foo(py_trees.behaviour.Behaviour):
         What to do here?
           Any initialisation you need before putting your behaviour
           to work.
+        每一次重启时都会运行
         """
         self.logger.debug("  %s [Foo::initialise()]" % self.name)
 
@@ -69,6 +72,7 @@ class Foo(py_trees.behaviour.Behaviour):
           - Triggering, checking, monitoring. Anything...but do not block!
           - Set a feedback message
           - return a py_trees.common.Status.[RUNNING, SUCCESS, FAILURE]
+        每一次 tick 时都会执行。不能阻塞，tick到来时应及时回复 RUNNING、SUCCESS、FAILURE
         """
         self.logger.debug("  %s [Foo::update()]" % self.name)
         ready_to_make_a_decision = random.choice([True, False])
@@ -88,5 +92,6 @@ class Foo(py_trees.behaviour.Behaviour):
            Whenever your behaviour switches to a non-running state.
             - SUCCESS || FAILURE : your behaviour's work cycle has finished
             - INVALID : a higher priority branch has interrupted, or shutting down
+            当成功或失败时会执行该函数
         """
         self.logger.debug("  %s [Foo::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
